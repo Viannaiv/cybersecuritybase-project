@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Private notes</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <header th:replace="fragments/frags :: header">Navigation</header>
+        
+        <h3>Add a private note</h3>
+
+        <form action="#" th:action="@{/private}" method="POST">
+            <p><label for="title">Title:</label> <span><input type="text" name="title" id="title"/></span></p>
+            <p><label for="content">Content:</label> <textarea name="content" id="content" maxlength="200" cols="40" rows="4"></textarea></p>
+            <p><input type="submit" value="Add note"/></p>
+        </form>
+        
+        <h3>My notes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <td width="30%"><b>Title</b></td>
+                    <td><b>Content</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="note : ${notes}" >
+                    <td th:text="${note.title}" ></td>
+                    <td th:text="${note.content}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

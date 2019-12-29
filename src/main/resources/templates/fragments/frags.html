@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Fragments</title>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <ul>
+                <li><a th:href="@{/public}">Public Notes</a></li>
+                <li><a th:href="@{/private}">My Private Notes</a></li> 
+            </ul>
+        </header>
+    </body>
+</html>
