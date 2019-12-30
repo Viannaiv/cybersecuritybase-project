@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>All notes</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <header th:replace="fragments/frags :: header">Navigation</header>
+        <h3>All notes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <td width="20%"><b>Writer</b></td>
+                    <td width="30%"><b>Title</b></td>
+                    <td><b>Content</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="note : ${notes}" >
+                    <td th:text="${note.account.username}"></td>
+                    <td th:text="${note.title}" ></td>
+                    <td th:text="${note.content}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

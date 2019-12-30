@@ -24,10 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @PostConstruct
     public void init() {
         Account account1 = new Account("foodie", "tofutofu");
+//        Account account1 = new Account("foodie", "$2a$10$lxXfpWRRDovX7QPL80k8KOxVxfB8JX.wYF.H9AeUvhZWNgmiQ8/NW");
         accountRepository.save(account1);
         addMessages(account1, true);
         
         Account account2 = new Account("unicorn", "magicsparkles");
+//        Account account2 = new Account("unicorn", "$2a$10$Hol3JWI.kiVsmI9CrxQlKeE8nhQqrYhD4g2DS1bKyyteObvbP6PjO");
         accountRepository.save(account2);
         addMessages(account2, false);
     }

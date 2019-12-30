@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import sec.project.domain.Account;
@@ -60,5 +61,31 @@ public class NoteController {
         
         return "redirect:/private";
     }
-
+    
+    @RequestMapping(value = "/notes/{username}", method = RequestMethod.GET)
+    public String loadAllUsersNotes(Authentication authentication, Model model, @PathVariable("username") String username) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
+            return "redirect:/public";
+        }
+        List<Note> notes = account.getNotes();
+        model.addAttribute("notespub", notes.stream().filter(n -> n.getPriv() == 0).collect(Collectors.toList()));
+        model.addAttribute("notespriv", notes.stream().filter(n -> n.getPriv() == 1).collect(Collectors.toList()));
+        return "notes";
+    }
+    
+    @RequestMapping(value = "/notes", method = RequestMethod.GET)
+    public String loadAllNotes(Authentication authentication, Model model) {
+        Account account = accountRepository.findByUsername(authentication.getName());
+        List<Note> notes = account.getNotes();
+        model.addAttribute("notespub", notes.stream().filter(n -> n.getPriv() == 0).collect(Collectors.toList()));
+        model.addAttribute("notespriv", notes.stream().filter(n -> n.getPriv() == 1).collect(Collectors.toList()));
+        return "notes";
+    }
+    
+    @RequestMapping(value = "/admin/notes/all", method = RequestMethod.GET)
+    public String loadAllNotesAsAdmin(Model model) {
+        model.addAttribute("notes", noteRepository.findAll());
+        return "notes2";
+    }
 }
